@@ -1,0 +1,26 @@
+.header-login-container {
+    width: 100%;
+    height: 100px;
+}
+
+.header-login-container nav {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    height: 100%;
+}
+
+.header-login-container nav p {
+    color: transparent;
+    background-color: var(--second-color);
+    height: 1.5px;
+    width: 40%;
+    opacity: 0.5;
+}
+
+.header-user-img {
+    width: 70px;
+    opacity: 0.8;
+}

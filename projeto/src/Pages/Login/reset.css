@@ -1,0 +1,33 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Red Hat Display', sans-serif;
+}
+
+:root{
+    --primary-color: #2d939c;
+    --second-color: #3d5b72;
+    --text-color-dark: #000;
+    --text-color-light: #fff;
+    --icon-color: #F3F3F3;
+    --background-color: #475764d5;
+    --suport-color: #C9DFF2;
+}
+
+a{
+    text-decoration: none;
+    color: var(--text-color-dark);
+}
+
+body {
+    /* background-color: var(--background-color); */
+    background-color: white;
+}
+
+main {
+    height: 80vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
