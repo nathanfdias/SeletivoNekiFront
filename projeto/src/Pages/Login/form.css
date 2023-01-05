@@ -105,6 +105,16 @@
     transition: 0.7s;
 }
 
+.checkbox-remember{
+    margin-top: 10px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    color: white;
+}
+
 .form-button {
     width: 140px;
     height: 40px;

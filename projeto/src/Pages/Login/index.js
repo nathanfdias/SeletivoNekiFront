@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import LogoNeki from "../../Assets/Logo-Neki.png";
@@ -8,6 +8,7 @@ import "../Login/login-container.css";
 import "../Login/reset.css";
 
 import axios from "axios";
+import { UserContext } from "../../context/auth";
 
 export function Login() {
   const [username, setUsername] = useState("");
@@ -16,6 +17,8 @@ export function Login() {
   const [showPassword, setShowPassword] = useState(false);
   
   const navigate = useNavigate();
+  const { login, setChecked } = useContext(UserContext);
+
 
   const handleClickShowPassword = (e) => {
     e.preventDefault();
@@ -27,6 +30,14 @@ export function Login() {
       setShowPassword(false);
     }
   }
+
+  const handleChangeCheck = (e) => {
+    const { checked } = e.target;
+
+    if (checked) {
+      setChecked(true);
+    }
+  };
 
   function moveOverlay() {
     document.getElementById("login-container").classList.toggle("move");
@@ -41,8 +52,11 @@ export function Login() {
       })
       .then((response) => {
         console.log(response);
+        login(username, password);
         toast.success("Login realizado com sucesso!");
-        navigate("/home");
+        setTimeout(() => {
+          navigate("/home");
+        }, 1000)
       })
       .catch((error) => {
         console.log(error);
@@ -51,8 +65,6 @@ export function Login() {
   }
 
   function cadastrar(e){
-    e.preventDefault();
-    
     if(password === confirmPassword ){
       axios
         .post("http://localhost:8080/user/cadastrar", {
@@ -115,6 +127,10 @@ export function Login() {
                     <button className="showvisibility" onClick={(e) => handleClickShowPassword(e)}>
                       <i className="fa fa-eye"></i>
                     </button>
+                  </div>
+                  <div className="checkbox-remember">
+                    <input type="checkbox" id="check" name="check" onChange={handleChangeCheck}/>
+                    <label for="check">Lembrar de mim</label>
                   </div>
                 </div>
                 <button

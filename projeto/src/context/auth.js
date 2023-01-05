@@ -8,6 +8,7 @@ export const LoginProvider = ({ children }) => {
   const navigate = useNavigate();
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [checked, setChecked] = useState(false);
   
 
   useEffect(() => {
@@ -26,7 +27,10 @@ export const LoginProvider = ({ children }) => {
       setUser({userLog});
       navigate("/home");
 
-      localStorage.setItem("user", JSON.stringify(userLog));
+      if(checked) {
+        localStorage.setItem("user", JSON.stringify(userLog));
+      }
+
     }
   };
 
@@ -38,7 +42,7 @@ export const LoginProvider = ({ children }) => {
 
   return (
     <UserContext.Provider
-      value={{ authenticated: !!user, user, loading, login, logout }}
+      value={{ authenticated: !!user, user, loading, login, logout, checked, setChecked }}
     >
       {children}
     </UserContext.Provider>

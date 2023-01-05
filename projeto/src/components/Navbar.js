@@ -1,11 +1,19 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Link } from 'react-router-dom';
 import "./Navbar.css";
 import { FiMenu, FiX } from "react-icons/fi";
 import LogoNeki2 from "../Assets/Logo2-Neki.png";
 
+import { UserContext } from "../context/auth";
+
 const Navbar = ({ navbarLinks }) => {
   const [menuClicked, setMenuClicked] = useState(false);
+
+  const { logout } = useContext(UserContext);
+
+  const deslogar = () => {
+    logout();
+}
 
   const toggleMenuClick = () => {
     setMenuClicked(!menuClicked);
@@ -38,7 +46,9 @@ const Navbar = ({ navbarLinks }) => {
             <Link className="navbar_link" >Skills</Link>
         </li>
         <li className="navbar_item">
-            <Link className="navbar_link" >Logout</Link>
+          <button onClick={() => deslogar()}>
+            <p className="navbar_link" >Logout</p>
+          </button>
         </li>
       </ul>
     </nav>

@@ -9,7 +9,6 @@ const api = axios.create({
 
 export const createSession = async (username, password) => {
     return api
-    axios
     .post(`http://localhost:8080/login`, {
         username: username,
         password: password
