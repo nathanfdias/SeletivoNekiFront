@@ -27,6 +27,7 @@
 
   .navbar_item {
     white-space: nowrap;
+    display: flex;
   }
   
   .navbar_link {
@@ -45,6 +46,12 @@
   .navbar_link:hover {
     border-color: white;
     transition: 250ms;
+  }
+
+  .navbar-logout{
+    background-color: transparent;
+    border:none;
+    cursor: pointer;
   }
   
   .navbar_menu {
