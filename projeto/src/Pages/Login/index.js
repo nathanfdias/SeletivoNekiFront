@@ -5,15 +5,35 @@ import "../Login/form.css";
 import "../Login/header.css";
 import "../Login/login-container.css";
 import "../Login/reset.css";
+import { toast } from "react-toastify";
+
+import axios from "axios";
 
 export function Login() {
-  const [login, setLogin] = useState("");
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
   const navigate = useNavigate();
 
   function moveOverlay() {
     document.getElementById("login-container").classList.toggle("move");
+  }
+
+  function logar(e) {
+    // e.preventDefault();
+    axios
+    .post(`http://localhost:8080/login`, {
+        username: username,
+        password: password
+    })
+    .then((response) => {
+      console.log(response);
+          toast.success('Login realizado com sucesso!');
+          navigate("/home");
+      })
+      .catch((error) => {
+          toast.warning('Espaços vazios ou inválidos')
+      });
   }
 
   return (
@@ -47,7 +67,7 @@ export function Login() {
                     type="text"
                     className="form-input"
                     placeholder="Login"
-                    onChange={(e) => setLogin(e.target.value)}
+                    onChange={(e) => setUsername(e.target.value)}
                   />
                   <input
                     type="password"
@@ -60,9 +80,9 @@ export function Login() {
                   id="login-verify"
                   type="button"
                   className="form-button"
-                  // onClick={(e) => {
-                  //     logar(e);
-                  //   }}
+                  onClick={(e) => {
+                      logar(e);
+                    }}
                 >
                   Login
                 </button>
@@ -85,7 +105,7 @@ export function Login() {
                     type="text"
                     className="form-input"
                     placeholder="Login"
-                    onChange={(e) => setLogin(e.target.value)}
+                    onChange={(e) => setUsername(e.target.value)}
                   />
                   <input
                     type="password"

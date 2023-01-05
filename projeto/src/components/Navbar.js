@@ -32,6 +32,9 @@ const Navbar = ({ navbarLinks }) => {
             <Link className="navbar_link" to="/">Home</Link>
         </li>
         <li className="navbar_item">
+            <Link className="navbar_link" >Profile</Link>
+        </li>
+        <li className="navbar_item">
             <Link className="navbar_link" >Skills</Link>
         </li>
         <li className="navbar_item">
