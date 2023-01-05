@@ -44,6 +44,7 @@ export function Login() {
   }
 
   function logar(e) {
+    const message = "Authentication Failed";
     // e.preventDefault();
     axios
       .post(`http://localhost:8080/login`, {
@@ -52,11 +53,15 @@ export function Login() {
       })
       .then((response) => {
         console.log(response);
-        login(username, password);
-        toast.success("Login realizado com sucesso!");
-        setTimeout(() => {
-          navigate("/home");
-        }, 1000)
+        if(response.data !== message ){
+          login(username, password);
+          toast.success("Login realizado com sucesso!");
+          setTimeout(() => {
+            navigate("/home");
+          }, 1000)
+        } if(response.data === message) {
+          toast.warning("Espaços vazios ou inválidos");
+        }
       })
       .catch((error) => {
         console.log(error);
