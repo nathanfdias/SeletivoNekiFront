@@ -128,7 +128,7 @@ export function Login() {
                   Você possui uma conta?
                 </h2>
                 <p className="form-text">
-                  Você precisar logar com suas informações
+                  Você precisa logar com suas informações
                 </p>
                 <button
                   className="form-button form-button-light"
