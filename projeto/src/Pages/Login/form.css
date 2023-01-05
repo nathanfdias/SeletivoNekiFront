@@ -65,11 +65,7 @@
     padding: 10px 20px;
     border-style: none;
     border: 0 none;
-}
-
-.form-input-file{
-    color: white;
-    font-size: 14px;
+    outline: none;
 }
 
 .form-input-container {
@@ -77,6 +73,36 @@
     flex-direction: column;
     gap: 10px;
     border: 0 none;
+}
+
+.form-input-password{
+    width: 300px;
+    height: 40px;
+    padding: 10px;
+    padding-right: 90px;
+    border-style: none;
+    border: 0 none;
+    outline: none;
+}
+
+.form-input-content-password{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width: 300px;
+    height: 40px;
+    padding: 10px 20px;
+    border-style: none;
+    border: 0 none;
+    background-color: white;
+}
+
+.showvisibility{
+    border-style: none;
+    cursor: pointer;
+    background-color: transparent;
+    transition: 0.7s;
 }
 
 .form-button {

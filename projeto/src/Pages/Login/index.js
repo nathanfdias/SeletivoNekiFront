@@ -1,19 +1,32 @@
 import React, { useState } from "react";
-import { NavLink, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 import LogoNeki from "../../Assets/Logo-Neki.png";
 import "../Login/form.css";
 import "../Login/header.css";
 import "../Login/login-container.css";
 import "../Login/reset.css";
-import { toast } from "react-toastify";
 
 import axios from "axios";
 
 export function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
+  
   const navigate = useNavigate();
+
+  const handleClickShowPassword = (e) => {
+    e.preventDefault();
+    if (showPassword === false) {
+      setShowPassword(true);
+    } 
+    
+    if (showPassword === true) {
+      setShowPassword(false);
+    }
+  }
 
   function moveOverlay() {
     document.getElementById("login-container").classList.toggle("move");
@@ -22,18 +35,41 @@ export function Login() {
   function logar(e) {
     // e.preventDefault();
     axios
-    .post(`http://localhost:8080/login`, {
+      .post(`http://localhost:8080/login`, {
         username: username,
-        password: password
-    })
-    .then((response) => {
-      console.log(response);
-          toast.success('Login realizado com sucesso!');
-          navigate("/home");
+        password: password,
+      })
+      .then((response) => {
+        console.log(response);
+        toast.success("Login realizado com sucesso!");
+        navigate("/home");
       })
       .catch((error) => {
-          toast.warning('Espaços vazios ou inválidos')
+        console.log(error);
+        toast.warning("Espaços vazios ou inválidos");
       });
+  }
+
+  function cadastrar(e){
+    e.preventDefault();
+    
+    if(password === confirmPassword ){
+      axios
+        .post("http://localhost:8080/user/cadastrar", {
+          username: username,
+          password: password,
+        })
+        .then((response) => {
+          console.log(response);
+          toast.success('Usuário cadastrado com sucesso!');
+        })
+        .catch((error) => {
+          console.log(error);
+          toast.warning('Espaços vazios ou inválidos');
+        });
+    } else {
+      toast.warning('Senhas inválidas');
+    }
   }
 
   return (
@@ -42,7 +78,7 @@ export function Login() {
         <div className="header-login-container">
           <nav>
             <p>line</p>
-              <img className="header-user-img" src={LogoNeki} alt="Logo User" />
+            <img className="header-user-img" src={LogoNeki} alt="Logo User" />
             <p>line</p>
           </nav>
         </div>
@@ -69,20 +105,25 @@ export function Login() {
                     placeholder="Login"
                     onChange={(e) => setUsername(e.target.value)}
                   />
-                  <input
-                    type="password"
-                    className="form-input"
-                    placeholder="Password"
-                    onChange={(e) => setPassword(e.target.value)}
-                  />
+                  <div className="form-input-content-password">
+                    <input
+                      type={showPassword ? "text" : "password"}
+                      className="form-input-password"
+                      placeholder="Password"
+                      onChange={(e) => setPassword(e.target.value)}
+                    />
+                    <button className="showvisibility" onClick={(e) => handleClickShowPassword(e)}>
+                      <i className="fa fa-eye"></i>
+                    </button>
+                  </div>
                 </div>
                 <button
                   id="login-verify"
                   type="button"
                   className="form-button"
                   onClick={(e) => {
-                      logar(e);
-                    }}
+                    logar(e);
+                  }}
                 >
                   Login
                 </button>
@@ -107,26 +148,36 @@ export function Login() {
                     placeholder="Login"
                     onChange={(e) => setUsername(e.target.value)}
                   />
-                  <input
-                    type="password"
-                    className="form-input"
-                    placeholder="Password"
-                    onChange={(e) => setPassword(e.target.value)}
-                  />
-                  <input
-                    type="password"
-                    className="form-input"
-                    placeholder="Confirm Password"
-                    onChange={(e) => setPassword(e.target.value)}
-                  />
+<div className="form-input-content-password">
+                    <input
+                      type={showPassword ? "text" : "password"}
+                      className="form-input-password"
+                      placeholder="Password"
+                      onChange={(e) => setPassword(e.target.value)}
+                    />
+                    <button className="showvisibility" onClick={(e) => handleClickShowPassword(e)}>
+                      <i className="fa fa-eye"></i>
+                    </button>
+                  </div>
+                  <div className="form-input-content-password">
+                    <input
+                      type={showPassword ? "text" : "password"}
+                      className="form-input-password"
+                      placeholder="Confirm Password"
+                      onChange={(e) => setConfirmPassword(e.target.value)}
+                    />
+                    <button className="showvisibility" onClick={(e) => handleClickShowPassword(e)}>
+                      <i className="fa fa-eye"></i>
+                    </button>
+                  </div>
                 </div>
                 <button
                   type="button"
                   className="form-button"
-                  //   onClick={(e) => {
-                  //     cadastrar(e);
-                  //   }
-                  // }
+                    onClick={(e) => {
+                      cadastrar(e);
+                    }
+                  }
                 >
                   Cadastrar
                 </button>
