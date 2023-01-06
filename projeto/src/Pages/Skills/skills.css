@@ -1,20 +1,28 @@
 .skills-container{
     min-height: 100vh;
-    background-color: rgba(208, 211, 211, 0.459);
+    background-color: rgba(208, 211, 211, 0.356);
     display: flex;
     flex-direction: column;
 }
 
+.skills-box-container{
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
 .skills-box-content{
     margin-top: 70px;
+    background-color: rgba(155, 155, 155, 0.24);
     min-height: 320px;
     margin-inline: 30px;
     width: 320px;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    gap: 20px;
     align-items: center;
+    gap: 20px;
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
 
@@ -44,9 +52,14 @@
     font-size: 14px;
     font-weight: bolder;
     cursor: pointer;
-    border: none;
+    border: 1px solid var(--second-color);
     background-color: var(--second-color);
     color: white;
+}
+
+.skill-box-button:hover{
+    background-color: white;
+    color: var(--second-color);
 }
 
 .skills-map{
@@ -68,13 +81,14 @@
     align-items: center;
     justify-content: center;
     margin-top: 100px;
+    margin-bottom: 60px;
 }
 
 .skills-new-skill-container button{
     padding-inline: 40px;
     padding-block: 10px;
     font-size: 22px;
-    border: none;
+    border: 1px solid var(--second-color);
     background-color: var(--second-color);
     color: white;
     cursor: pointer;
