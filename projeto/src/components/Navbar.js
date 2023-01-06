@@ -40,7 +40,7 @@ const Navbar = ({ navbarLinks }) => {
             <Link className="navbar_link" to="/home">Home</Link>
         </li>
         <li className="navbar_item">
-            <Link className="navbar_link" >Skills</Link>
+            <Link className="navbar_link" to="/skills">Skills</Link>
         </li>
         <li className="navbar_item">
           <button className="navbar-logout" onClick={() => deslogar()}>
