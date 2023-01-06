@@ -97,6 +97,7 @@ return (
                         </div>
                         <div className="text-container">
                             <h2>{skill.name}</h2>
+                            <p>Version: {skill.version}</p>
                             <p>{skill.description}</p>
                         </div>
                         <div className="input-checkbox">
