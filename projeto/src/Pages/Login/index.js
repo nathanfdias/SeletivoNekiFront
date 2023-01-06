@@ -17,7 +17,7 @@ export function Login() {
   const [showPassword, setShowPassword] = useState(false);
   
   const navigate = useNavigate();
-  const { login, setChecked } = useContext(UserContext);
+  const { login, setChecked, setToken } = useContext(UserContext);
 
 
   const handleClickShowPassword = (e) => {
@@ -53,6 +53,7 @@ export function Login() {
       .then((response) => {
         console.log(response);
           login(username, password);
+          setToken(response.data.token);
           toast.success("Login realizado com sucesso!");
           setTimeout(() => {
             navigate("/home");

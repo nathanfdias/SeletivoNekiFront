@@ -1,56 +1,116 @@
-import React from 'react';
+import axios from "axios";
+import React, { useContext, useEffect, useState } from 'react';
 import Navbar from '../../components/Navbar';
-import { UseAPI } from '../../services/api';
-
+import { UserContext } from "../../context/auth";
 import "../Skills/skills.css";
 
 export function Skills() {
-    const { data, carregando } = UseAPI(`http://localhost:8080/skills`);
- return (
-   <>
+    const [skills,setSkills] = useState([])
+    const {user} = useContext(UserContext);
+
+    const [skillInfo, setSkillInfo] = useState({
+        skills: [],
+        response: [],
+      });
+      
+      const handleChange = (e) => {
+        const { value, checked } = e.target;
+        const { skills } = skillInfo;
+
+        
+        if (checked) {
+            setSkillInfo({
+            skills: [...skills, value],
+            response: [...skills, value],
+          });
+          console.log(value)
+        }
+      
+        else {
+            setSkillInfo({
+            skills: skills.filter((e) => e !== value),
+            response: skills.filter((e) => e !== value),
+          });
+        }
+      };
+
+      const cadastraSkillsUser = () => {
+        if (skillInfo && skillInfo.response) {
+          skillInfo.response.map((ids) => {
+            axios
+            .post(`http://localhost:8080/userskill/cadastrar`, {
+                "id": 0,
+                "knowledgeLevel": 0,
+                "skill": {
+                  "id": ids,
+                  "image_url": "string",
+                  "version": "string"
+                },
+                "user": {
+                  "id": user,
+                  "lastLoginDate": "2023-01-06",
+                  "password": "string",
+                  "userSkill": [
+                    null
+                  ],
+                  "username": "string"
+                }
+              })
+              .then((res) => {
+                alert("ok")
+            })
+            .catch((error) => {
+                // trate os erros aqui
+            })
+        });
+        }
+      };
+
+      useEffect(() => {
+        axios.get("http://localhost:8080/skill").then((res) => {
+            console.log(res)
+            setSkills(res.data)
+        })
+      },[])
+return (
+    <>
     <div className='skills-container'>
         <Navbar />
         <div className='skills-box-container'>
             <div className='skills-map'>
-                {/* {data?.map((skill) => {
-                    return ( */}
-                        <div className='skills-box-content'>
-                            <div className='skills-box-title'>
-                                <p>Skill: HTML</p>
-                                <p>Version: 5</p>
-                            </div>
-                            <img className="skill-image" src={"https://play-lh.googleusercontent.com/85WnuKkqDY4gf6tndeL4_Ng5vgRk7PTfmpI4vHMIosyq6XQ7ZGDXNtYG2s0b09kJMw"}></img>
-                            <p className='skills-box-descript'>Linguagem de marcação front end</p>
-                            <button className='skill-box-button'>Adicionar Skill</button>
+                <div className="form-input-container-skills">
+                    <input
+                        type="text"
+                        className="form-input"
+                        placeholder="Pesquise as Skills"
+                        //onChange={(e) => setUsername(e.target.value)}
+                    />
+                </div>
+                 {skills?.map((skill,index) => ( 
+                    <div className="card-skills-container" key={index}>
+                        <div className="img-container">
+                            <img src={skill.image_url} alt="" />
                         </div>
-                        <div className='skills-box-content'>
-                            <div className='skills-box-title'>
-                                <p>Skill: HTML</p>
-                                <p>Version: 5</p>
-                            </div>
-                            <img className="skill-image" src={"https://play-lh.googleusercontent.com/85WnuKkqDY4gf6tndeL4_Ng5vgRk7PTfmpI4vHMIosyq6XQ7ZGDXNtYG2s0b09kJMw"}></img>
-                            <p className='skills-box-descript'>Linguagem de marcação front end</p>
-                            <button className='skill-box-button'>Adicionar Skill</button>
+                        <div className="text-container">
+                            <h2>{skill.name}</h2>
+                            <p>{skill.description}</p>
                         </div>
-                        <div className='skills-box-content'>
-                            <div className='skills-box-title'>
-                                <p>Skill: HTML</p>
-                                <p>Version: 5</p>
-                            </div>
-                            <img className="skill-image" src={"https://play-lh.googleusercontent.com/85WnuKkqDY4gf6tndeL4_Ng5vgRk7PTfmpI4vHMIosyq6XQ7ZGDXNtYG2s0b09kJMw"}></img>
-                            <p className='skills-box-descript'>Linguagem de marcação front end</p>
-                            <button className='skill-box-button'>Adicionar Skill</button>
-                        </div>
-                    {/* ); */}
-                {/* })} */}
-            </div>
-            <div className='skills-new-skill-container'>
-                <button>
-                    Criar Nova Skill
-                </button>
+                        <div className="input-checkbox">
+                        <input
+                        className="form-check-input"
+                        type="checkbox"
+                        name="languages"
+                        value={skill?.id}
+                        id="flexCheckDefault"
+                        onChange={handleChange}
+                      />
+                    </div>
+                    </div>
+                ))} 
+                <button className="skills-new-skill-container" onClick={cadastraSkillsUser}>Adicionar Skills</button>
             </div>
         </div>
     </div>
-   </>
-  );
+</>
+);
 }

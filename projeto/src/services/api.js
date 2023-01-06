@@ -1,9 +1,8 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { toast } from "react-toastify";
-import { useNavigate } from "react-router-dom";
 
-const api = axios.create({
+export const api = axios.create({
     baseURL: 'http://localhost:8080',
 });
 
