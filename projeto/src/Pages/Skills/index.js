@@ -1,5 +1,6 @@
 import axios from "axios";
 import React, { useContext, useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import Navbar from '../../components/Navbar';
 import { UserContext } from "../../context/auth";
 import "../Skills/skills.css";
@@ -85,11 +86,14 @@ return (
                         placeholder="Pesquise as Skills"
                         //onChange={(e) => setUsername(e.target.value)}
                     />
+                    <Link className="create-skill-button" to="/skillcreate">
+                      Criar Nova Skill
+                    </Link>
                 </div>
                  {skills?.map((skill,index) => ( 
                     <div className="card-skills-container" key={index}>
                         <div className="img-container">
-                            <img src={skill.image_url} alt="" />
+                            <img className="skill-image" src={skill.image_url} alt="" />
                         </div>
                         <div className="text-container">
                             <h2>{skill.name}</h2>

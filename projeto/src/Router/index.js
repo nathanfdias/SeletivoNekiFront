@@ -6,6 +6,7 @@ import { UserContext } from "../context/auth.js";
 import { Login } from "../Pages/Login";
 import { Home } from "../Pages/Home";
 import { Skills } from "../Pages/Skills";
+import { SkillCreate } from '../Pages/SkillCreate';
 
 export function Router() {
 
@@ -28,6 +29,7 @@ export function Router() {
         <Route element={<Login />} path="/" />
         <Route element={<Private><Home /></Private>} path="/home" />
         <Route element={<Private><Skills /></Private>} path="/skills"/>
+        <Route element={<Private><SkillCreate /></Private>} path="/skillcreate"/>
     </Routes>
   );
 }

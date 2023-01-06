@@ -1,7 +1,6 @@
 import { createContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { createSession } from "../services/api";
-import { api } from "../services/api";
+import { api, createSession } from "../services/api";
 
 export const UserContext = createContext();
 
@@ -11,7 +10,6 @@ export const LoginProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
   const [checked, setChecked] = useState(false);
   const [token, setToken] = useState("");
-  
 
   useEffect(() => {
     const recoverdUser = localStorage.getItem("user");
@@ -19,26 +17,25 @@ export const LoginProvider = ({ children }) => {
 
     if (recoverdUser) {
       setUser(JSON.parse(recoverdUser));
-      api.defaults.headers.Authorization = `Bearer ${token}`
+      api.defaults.headers.Authorization = `Bearer ${token}`;
     }
     setLoading(false);
   }, []);
 
   const login = async (username, password) => {
-    api.defaults.headers.Authorization = `Bearer ${token}`
-
     const response = await createSession(username, password);
     if (response !== undefined) {
       const userLog = response.data.id;
-
-      setUser({userLog});
-      navigate("/home");
-
-      if(checked) {
+      
+      if (checked) {
         localStorage.setItem("user", JSON.stringify(userLog));
-        localStorage.setItem("token", token);
+        localStorage.setItem("token", response.data.token);
+        api.defaults.headers.Authorization = `Bearer ${response.data.token}`;
+        console.log(response.data.token);
       }
-
+      
+      setUser({ userLog });
+      navigate("/home");
     }
   };
 
@@ -50,7 +47,17 @@ export const LoginProvider = ({ children }) => {
 
   return (
     <UserContext.Provider
-      value={{ authenticated: !!user, user, loading, login, logout, checked, setChecked, token, setToken }}
+      value={{
+        authenticated: !!user,
+        user,
+        loading,
+        login,
+        logout,
+        checked,
+        setChecked,
+        token,
+        setToken,
+      }}
     >
       {children}
     </UserContext.Provider>

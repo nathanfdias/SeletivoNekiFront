@@ -1,0 +1,72 @@
+.form-add-skill{
+    height: 90vh;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.form-add-skill-container{
+    width: 80%;
+    height: 600px;
+    border-radius: 18px;
+    border: 1px solid var(--second-color);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    padding-inline: 40px;
+    background-color: white;
+}
+
+.form-add-skill-container h2{
+    color: var(--second-color);
+}
+
+.skill-create-mensage-title{
+    font-size: 18px;
+    color: var(--second-color);
+}
+
+.button-feed-enviar{
+    height: 32px;
+    padding-inline: 60px;
+    border-radius: 25px;
+    border: none;
+    font-size: 20px;
+    background-color: var(--second-color);
+    color: white;
+    font-weight: bolder;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    width: 40%;
+    align-self: center;
+  }
+
+  .input-skill-create{
+    height: 40px;
+    padding-left: 20px;
+    border: none;
+    background-color: rgba(201, 201, 201, 0.404);
+    border-radius: 10px;
+    font-size: 18px;
+  }
+  
+  .textarea{
+    padding-top: 10px;
+    padding-left: 20px;
+    height: 160px;
+    border: none;
+    background-color: rgba(201, 201, 201, 0.404);
+    border-radius: 10px;
+    font-size: 18px;
+  }
+
+  .input-container-create-skill{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 40px;
+  }

@@ -55,8 +55,34 @@
     margin-top: 3rem;
     margin-left: 4rem;
 }
+
+.create-skill-button{
+    margin: 48px 56px 64px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    align-self: center;
+    width: 300px;
+    height: 40px;
+    padding: 10px 20px;
+    border-style: none;
+    border: 0 none;
+    outline: none;
+    border-radius: 10px;
+    font-size: 14px;
+    background-color: var(--second-color);
+    color: white;
+    cursor: pointer;
+}
+
 .form-input-container {
     margin-bottom: 4rem;
+}
+
+.form-input-container-skills{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
 }
 
 .skill-box-button:hover{
