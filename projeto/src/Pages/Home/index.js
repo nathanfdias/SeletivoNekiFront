@@ -13,7 +13,7 @@ export function Home() {
   const {user} = useContext(UserContext);
   const [popup, setPopup] = useState(false);
   const [errorS, setErrorS] = useState(null);
-  const [aux, setAux] = useState(false);
+  const [aux, setAux] = useState(true);
   const [idUserSkill, setIdUserSkill] = useState(0);
   const [knowledgeLevel, setKnowledgeLevel] = useState(0);
   const [idSkill, setIdSkill] = useState(0);
@@ -37,12 +37,13 @@ export function Home() {
   function handleSetValues(userSkill){
     setIdUserSkill(userSkill?.id)
     setPopup(true)
+    setAux(false)
     setIdSkill(userSkill?.skill?.id)
   }
 
 
   //Valores substituidos no Back: createdAT, etc...
-  function atualizarUserSkill(e) {
+  function atualizarUserSkill() {
     axios
       .put(`http://localhost:8080/userskill/${idUserSkill}`, 
         {
@@ -72,18 +73,17 @@ export function Home() {
         }
       )
       .then((response) => {
-        console.log(response);
         toast.success("Level Atualizado com sucesso!");
-        navigate("/home");
         setPopup(false);
-        setAux(true);
+        setTimeout(() => {
+          setAux(true);
+        },2000)
+        
+        console.log(aux);
       })
       .catch((error) => {
         toast.warning("Erro ao Atualizar");
       })
-      // .finally(() => {
-      //   refresh();
-      // });
   }
 
   const refresh = () => {
@@ -91,8 +91,13 @@ export function Home() {
   };
 
   // useEffect(() => {
-  //   setAux(false);
-  // },[aux]);
+  //   axios
+  //   .get(`http://localhost:8080/userskill`)
+  //   .then((response) => {
+  //     setData(response.data);
+  //   })
+    
+  // },[]);
 
   return (
     <>
@@ -100,25 +105,25 @@ export function Home() {
         <Navbar />
         <div className="home-boxes-container">
           {data?.map((userSkill) => {
-            console.log(data);
-            return (
-              <div className="home-itens-map">
-                <div className="home-skill-box-title">
-                  <p>Skill: {userSkill?.skill?.name}</p>
-                  <p>Version: {userSkill?.skill?.version}</p>
-                  <p>Level: {userSkill?.knowledgeLevel}</p>
+              console.log(userSkill.user.id)
+              return (
+                <div className="home-itens-map">
+                  <div className="home-skill-box-title">
+                    <p>Skill: {userSkill?.skill?.name}</p>
+                    <p>Version: {userSkill?.skill?.version}</p>
+                    <p>Level: {userSkill?.knowledgeLevel}</p>
+                  </div>
+                  <img
+                    className="skill-image"
+                    src={userSkill?.skill?.image_url}
+                  ></img>
+                  <button className="skill-box-button" onClick={() => handleSetValues(userSkill)}>
+                    Level Edit
+                  </button>
+                  <button className="skill-box-button" onClick={() => deletarUserSkill(userSkill.id)} >Delete Skill</button>
                 </div>
-                <img
-                  className="skill-image"
-                  src={userSkill?.skill?.image_url}
-                ></img>
-                <button className="skill-box-button" onClick={() => handleSetValues(userSkill)}>
-                  Level Edit
-                </button>
-                <button className="skill-box-button" onClick={() => deletarUserSkill(userSkill.id)} >Delete Skill</button>
-              </div>
-              
-            );
+                
+              );
           })}
           <Popup trigger={popup} setTrigger={setPopup}>
           <div className="form-edit-perfil-popup-content">
@@ -130,7 +135,7 @@ export function Home() {
             />
             <button
               className="button-edit-level-home"
-              onClick={(e) => atualizarUserSkill(e)}
+              onClick={() => atualizarUserSkill()}
             >
               Enviar
             </button>
