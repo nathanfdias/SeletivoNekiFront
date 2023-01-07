@@ -41,3 +41,30 @@
     padding-block: 20px;
     background-color: white;
 }
+
+.form-edit-perfil-popup-content{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.button-edit-level-home{
+    height: 26px;
+    width: 100px;
+  padding-inline: 46px;
+  border-radius: 25px;
+  border: none;
+  font-size: 16px;
+  background-color: var(--primary-color);
+  color: white;
+  font-weight: bolder;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.input-edit-level-home{
+    font-size: 18px;
+}
