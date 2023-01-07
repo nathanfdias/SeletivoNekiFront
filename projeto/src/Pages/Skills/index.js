@@ -1,13 +1,16 @@
 import axios from "axios";
 import React, { useContext, useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Navbar from '../../components/Navbar';
 import { UserContext } from "../../context/auth";
+import { toast } from "react-toastify";
 import "../Skills/skills.css";
 
 export function Skills() {
     const [skills,setSkills] = useState([])
     const {user} = useContext(UserContext);
+
+      const navigate = useNavigate();
 
     const [skillInfo, setSkillInfo] = useState({
         skills: [],
@@ -36,33 +39,45 @@ export function Skills() {
       };
 
       const cadastraSkillsUser = () => {
+
         if (skillInfo && skillInfo.response) {
           skillInfo.response.map((ids) => {
             axios
             .post(`http://localhost:8080/userskill/cadastrar`, {
-                "id": 0,
-                "knowledgeLevel": 0,
-                "skill": {
-                  "id": ids,
-                  "image_url": "string",
-                  "version": "string"
-                },
-                "user": {
-                  "id": user,
-                  "lastLoginDate": "2023-01-06",
-                  "password": "string",
-                  "userSkill": [
-                    null
-                  ],
-                  "username": "string"
-                }
-              })
+              "createdAt": "2023-01-06T23:03:38.941Z",
+              "id": 0,
+              "knowledgeLevel": 0,
+              "skill": {
+                "description": "string",
+                "id": ids,
+                "image_url": "string",
+                "name": "string",
+                "userSkill": [
+                  null
+                ],
+                "version": "string"
+              },
+              "updatedAt": "2023-01-06T23:03:38.941Z",
+              "user": {
+                "id": user,
+                "lastLoginDate": "2023-01-06",
+                "password": "string",
+                "userSkill": [
+                  null
+                ],
+                "username": "string"
+              }
+            })
               .then((res) => {
-                alert("ok")
+                toast.success("Skill Adicionada");
+                setTimeout(() => {
+                  navigate("/home");
+                }, 1000)
             })
             .catch((error) => {
-                // trate os erros aqui
-            })
+              console.log(error);
+              toast.warning("Error ao adicionar");
+            });
         });
         }
       };
