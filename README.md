@@ -6,7 +6,7 @@ React project consuming API
 
 ![Badge em Desenvolvimento](https://img.shields.io/static/v1?label=STATUS&message=FINALIZADO&color=GREEN&style=for-the-badge)
 
-<img src="/projeto/src/Assets/ProcessoSeletivoNekiFinalGif.gif" heigth="400">
+<img src="/projeto/src/Assets/ProcessoSeletivoNekiFinalGIF.gif" heigth="600">
 
 
 ## 📋 Índice
