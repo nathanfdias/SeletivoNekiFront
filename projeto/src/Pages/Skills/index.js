@@ -9,6 +9,7 @@ import "../Skills/skills.css";
 export function Skills() {
     const [skills,setSkills] = useState([])
     const {user} = useContext(UserContext);
+    const [busca, setBusca] = useState("");
 
       const navigate = useNavigate();
 
@@ -88,6 +89,9 @@ export function Skills() {
             setSkills(res.data)
         })
       },[])
+
+      const skillsFiltrados = skills?.filter((skills) => skills.name.toUpperCase().includes(busca.toUpperCase()))
+
 return (
     <>
     <div className='skills-container'>
@@ -99,13 +103,13 @@ return (
                         type="text"
                         className="form-input"
                         placeholder="Pesquise as Skills"
-                        //onChange={(e) => setUsername(e.target.value)}
+                        onChange={(e) => setBusca(e.target.value)}
                     />
                     <Link className="create-skill-button" to="/skillcreate">
                       Criar Nova Skill
                     </Link>
                 </div>
-                 {skills?.map((skill,index) => ( 
+                 {skillsFiltrados?.map((skill,index) => ( 
                     <div className="card-skills-container" key={index}>
                         <div className="img-container">
                             <img className="skill-image" src={skill.image_url} alt="" />
