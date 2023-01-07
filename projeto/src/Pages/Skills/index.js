@@ -71,7 +71,7 @@ export function Skills() {
               .then((res) => {
                 toast.success("Skill Adicionada");
                 setTimeout(() => {
-                  navigate("/home");
+                  navigate(`/home/${user}`);
                 }, 1000)
             })
             .catch((error) => {

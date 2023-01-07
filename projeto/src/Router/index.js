@@ -27,7 +27,7 @@ export function Router() {
  return (
     <Routes>
         <Route element={<Login />} path="/" />
-        <Route element={<Private><Home /></Private>} path="/home" />
+        <Route element={<Private><Home /></Private>} path="/home/:id" />
         <Route element={<Private><Skills /></Private>} path="/skills"/>
         <Route element={<Private><SkillCreate /></Private>} path="/skillcreate"/>
     </Routes>

@@ -1,6 +1,6 @@
 import React,{useState, useContext, useEffect} from "react";
 import Navbar from "../../components/Navbar";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { UseAPI } from "../../services/api";
 import { toast } from "react-toastify";
 import "../Home/index.css";
@@ -9,8 +9,9 @@ import { UserContext } from "../../context/auth";
 import { Popup } from "../../components/popup/index.js";
 
 export function Home() {
-  const { data } = UseAPI(`http://localhost:8080/userskill`);
   const {user} = useContext(UserContext);
+  const {id} = useParams();
+  const { data } = UseAPI(`http://localhost:8080/user/${id}`);
   const [popup, setPopup] = useState(false);
   const [errorS, setErrorS] = useState(null);
   const [aux, setAux] = useState(true);
@@ -78,12 +79,13 @@ export function Home() {
         setTimeout(() => {
           setAux(true);
         },2000)
-        
-        console.log(aux);
       })
       .catch((error) => {
         toast.warning("Erro ao Atualizar");
       })
+      .finally(() => {
+        refresh();
+      });
   }
 
   const refresh = () => {
@@ -91,11 +93,7 @@ export function Home() {
   };
 
   // useEffect(() => {
-  //   axios
-  //   .get(`http://localhost:8080/userskill`)
-  //   .then((response) => {
-  //     setData(response.data);
-  //   })
+
     
   // },[]);
 
@@ -104,8 +102,8 @@ export function Home() {
       <div className="home-container">
         <Navbar />
         <div className="home-boxes-container">
-          {data?.map((userSkill) => {
-              console.log(userSkill.user.id)
+          {data?.userSkill?.map((userSkill) => {
+              console.log(data)
               return (
                 <div className="home-itens-map">
                   <div className="home-skill-box-title">
@@ -115,7 +113,7 @@ export function Home() {
                   </div>
                   <img
                     className="skill-image"
-                    src={userSkill?.skill?.image_url}
+                    src={userSkill?.skill?.imgUrl}
                   ></img>
                   <button className="skill-box-button" onClick={() => handleSetValues(userSkill)}>
                     Level Edit

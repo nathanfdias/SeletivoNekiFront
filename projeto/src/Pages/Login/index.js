@@ -56,7 +56,7 @@ export function Login() {
           setToken(response.data.token);
           toast.success("Login realizado com sucesso!");
           setTimeout(() => {
-            navigate("/home");
+            navigate(`/home/${response.data.id}`);
           }, 1000)
       })
       .catch((error) => {

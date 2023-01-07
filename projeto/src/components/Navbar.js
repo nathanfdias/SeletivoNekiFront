@@ -3,13 +3,12 @@ import { Link } from 'react-router-dom';
 import "./Navbar.css";
 import { FiMenu, FiX } from "react-icons/fi";
 import LogoNeki2 from "../Assets/Logo2-Neki.png";
-
 import { UserContext } from "../context/auth";
 
 const Navbar = ({ navbarLinks }) => {
   const [menuClicked, setMenuClicked] = useState(false);
 
-  const { logout } = useContext(UserContext);
+  const { logout, user } = useContext(UserContext);
 
   const deslogar = () => {
     logout();
@@ -37,7 +36,7 @@ const Navbar = ({ navbarLinks }) => {
         }
       >
         <li className="navbar_item">
-            <Link className="navbar_link" to="/home">Home</Link>
+            <Link className="navbar_link" to={`/home/${user}`}>Home</Link>
         </li>
         <li className="navbar_item">
             <Link className="navbar_link" to="/skills">Skills</Link>
